@@ -1,18 +1,38 @@
-name: DAST Scan
-on: [push]
+name: DAST Demo Env
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
-  dast_scan:
+  dast:
     runs-on: ubuntu-latest
+    name: DAST on Prem Testing Action
     steps:
-      - uses: actions/checkout@v2
-      - name: Checkmarx DAST Github Action
-        uses: Checkmarx/dast-github-action@v1.0.0-beta
-        env:
-          CX_APIKEY: ${{ secrets.CX_ONE_API_KEY }}
+      - name: Checkout Code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Create Output folder
+        run: mkdir ${{ runner.temp }}/output
+      - name: Change dir owner
+        run: sudo chown -R 1000:1000 ${{ runner.temp }}/output
+      - name: Run DAST-CLI command
+        run: |
+           docker run --pull=always \
+-e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlY2RkYmY4OS01MGNhLTQ2ZjMtYjIzMC02NjVlYWU5NWYzZTkifQ.eyJpYXQiOjE3NjU4OTYwNTEsImp0aSI6ImFmN2YxYWI1LWViM2MtNDVlZS1iNDZlLTQzOWRkOWE5ZDkzNiIsImlzcyI6Imh0dHBzOi8vZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3hfc2VnIiwiYXVkIjoiaHR0cHM6Ly9ldS5pYW0uY2hlY2ttYXJ4Lm5ldC9hdXRoL3JlYWxtcy9jeF9zZWciLCJzdWIiOiJlYWIwZTJmMi1kYWU2LTRlNTgtODlmMy0yMWVhN2Q2YTExMmUiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6IjdjNjJlOThjLTRhMGYtNDU2OS05MzI5LWYzNzQwYzkyMTY2YiIsInNjb3BlIjoicHJvZmlsZSBhc3QtYXBpIHJvbGVzIGVtYWlsIGlhbS1hcGkgb2ZmbGluZV9hY2Nlc3MifQ.ffzuIfXwHDF2ZkRNJb8z2bGxcqgCTVZfy-Cme-vxSSn672C7iymqqz-ZZF-WZPEPavk_JKS6LpCEEabhi6KMjw \
+checkmarx/dast:latest \
+scan \
+--environment-id=c5d2ac63-fa8e-487c-bcd8-6269e53a9848 \
+--base-url=https://eu.ast.checkmarx.net \
+--output=/tmp
+
+      - name: Set permission on output folder
+        run: |
+         sudo chown -R 1001:1001 ${{ runner.temp }}/output
+      - name: Upload ZAP output
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        if: always()
         with:
-          command: "web"
-          config: 'zap_config.yaml'
-          base_url: "localhost.cxast.net"
-          environment_id: "c608a51a-ec4e-4eef-81c4-a0241737efd7"
-          fail_on: "HIGH"
-          verbose: true
+          name: zap-output
+          path: ${{ runner.temp }}/output
