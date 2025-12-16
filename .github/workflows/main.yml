@@ -19,14 +19,7 @@ jobs:
         run: sudo chown -R 1000:1000 ${{ runner.temp }}/output
       - name: Run DAST_CLI_scan command
         run: |
-           docker run --pull=always \
--e "CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlY2RkYmY4OS01MGNhLTQ2ZjMtYjIzMC02NjVlYWU5NWYzZTkifQ.eyJpYXQiOjE3NjU4OTYwNTEsImp0aSI6ImFmN2YxYWI1LWViM2MtNDVlZS1iNDZlLTQzOWRkOWE5ZDkzNiIsImlzcyI6Imh0dHBzOi8vZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3hfc2VnIiwiYXVkIjoiaHR0cHM6Ly9ldS5pYW0uY2hlY2ttYXJ4Lm5ldC9hdXRoL3JlYWxtcy9jeF9zZWciLCJzdWIiOiJlYWIwZTJmMi1kYWU2LTRlNTgtODlmMy0yMWVhN2Q2YTExMmUiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6IjdjNjJlOThjLTRhMGYtNDU2OS05MzI5LWYzNzQwYzkyMTY2YiIsInNjb3BlIjoicHJvZmlsZSBhc3QtYXBpIHJvbGVzIGVtYWlsIGlhbS1hcGkgb2ZmbGluZV9hY2Nlc3MifQ.ffzuIfXwHDF2ZkRNJb8z2bGxcqgCTVZfy-Cme-vxSSn672C7iymqqz-ZZF-WZPEPavk_JKS6LpCEEabhi6KMjw" \
-checkmarx/dast:latest \
-scan \
---environment-id=c5d2ac63-fa8e-487c-bcd8-6269e53a9848 \
---base-url=https://eu.ast.checkmarx.net \
---output=/tmp
-
+           docker run --pull=always -e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlY2RkYmY4OS01MGNhLTQ2ZjMtYjIzMC02NjVlYWU5NWYzZTkifQ.eyJpYXQiOjE3NjU4OTYwNTEsImp0aSI6ImFmN2YxYWI1LWViM2MtNDVlZS1iNDZlLTQzOWRkOWE5ZDkzNiIsImlzcyI6Imh0dHBzOi8vZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3hfc2VnIiwiYXVkIjoiaHR0cHM6Ly9ldS5pYW0uY2hlY2ttYXJ4Lm5ldC9hdXRoL3JlYWxtcy9jeF9zZWciLCJzdWIiOiJlYWIwZTJmMi1kYWU2LTRlNTgtODlmMy0yMWVhN2Q2YTExMmUiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6IjdjNjJlOThjLTRhMGYtNDU2OS05MzI5LWYzNzQwYzkyMTY2YiIsInNjb3BlIjoicHJvZmlsZSBhc3QtYXBpIHJvbGVzIGVtYWlsIGlhbS1hcGkgb2ZmbGluZV9hY2Nlc3MifQ.ffzuIfXwHDF2ZkRNJb8z2bGxcqgCTVZfy-Cme-vxSSn672C7iymqqz-ZZF-WZPEPavk_JKS6LpCEEabhi6KMjw checkmarx/dast:latest scan --environment-id=c5d2ac63-fa8e-487c-bcd8-6269e53a9848 --base-url=https://eu.ast.checkmarx.net --output=/tmp
       - name: Set permission on output folder
         run: |
          sudo chown -R 1001:1001 ${{ runner.temp }}/output
