@@ -20,12 +20,13 @@ jobs:
       - name: Run DAST-CLI command
         run: |
            docker run --pull=always \
-            -e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJlY2RkYmY4OS01MGNhLTQ2ZjMtYjIzMC02NjVlYWU5NWYzZTkifQ.eyJpYXQiOjE3NjU4OTYwNTEsImp0aSI6ImFmN2YxYWI1LWViM2MtNDVlZS1iNDZlLTQzOWRkOWE5ZDkzNiIsImlzcyI6Imh0dHBzOi8vZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3hfc2VnIiwiYXVkIjoiaHR0cHM6Ly9ldS5pYW0uY2hlY2ttYXJ4Lm5ldC9hdXRoL3JlYWxtcy9jeF9zZWciLCJzdWIiOiJlYWIwZTJmMi1kYWU2LTRlNTgtODlmMy0yMWVhN2Q2YTExMmUiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6IjdjNjJlOThjLTRhMGYtNDU2OS05MzI5LWYzNzQwYzkyMTY2YiIsInNjb3BlIjoicHJvZmlsZSBhc3QtYXBpIHJvbGVzIGVtYWlsIGlhbS1hcGkgb2ZmbGluZV9hY2Nlc3MifQ.ffzuIfXwHDF2ZkRNJb8z2bGxcqgCTVZfy-Cme-vxSSn672C7iymqqz-ZZF-WZPEPavk_JKS6LpCEEabhi6KMjw \
-            checkmarx/dast:latest \
-            scan \
-            --environment-id=983a3cc1-f6d9-40b2-81dc-1897bb00e1f4 \
-            --base-url=https://eu.ast.checkmarx.net \
-            --output=/tmp
+           -e CX_APIKEY=eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkZDgyZWQ0OS1iMDdlLTQ1OWItYmU5ZS1jYTU4M2IyZjg4MTMifQ.eyJpYXQiOjE3NjYwNjExMzMsImp0aSI6IjhhMjNjN2U5LTM5NTUtNDVhMS05YTRmLTAzZDA1YzA5ZmJjOSIsImlzcyI6Imh0dHBzOi8vaWFtLWRldi5kZXYuY3hhc3QubmV0L2F1dGgvcmVhbG1zL2tpYXJhIiwiYXVkIjoiaHR0cHM6Ly9pYW0tZGV2LmRldi5jeGFzdC5uZXQvYXV0aC9yZWFsbXMva2lhcmEiLCJzdWIiOiI1MDRlOWMyOS01ZjAwLTQ4N2UtOWVhZC05Y2FhYzI1MDY1Y2IiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6IjkzYjNhOTViLTRiOWYtNGUwMy05ZTVhLTQ1MTJkMGZhZTNjNSIsInNjb3BlIjoiZW1haWwgcm9sZXMgcHJvZmlsZSBhc3QtYXBpIGdyb3VwcyBpYW0tYXBpIG9mZmxpbmVfYWNjZXNzIn0.3ZbaCs2bd6bJQ-COQcL09LetefGZ54TLf5f_gF_C-zNvBmew_dMTvc3NOvxvyMEUOvDLKk6qIEdqUb6dkb4IPA \
+           checkmarx/dast:latest \
+           scan \
+           --environment-id=47370c7c-eff5-4ab1-8907-9cbb1b23390d \
+           --base-url=https://ast-master-components.dev.cxast.net \
+           --output=/tmp
+           
       - name: Set permission on output folder
         run: |
          sudo chown -R 1001:1001 ${{ runner.temp }}/output
